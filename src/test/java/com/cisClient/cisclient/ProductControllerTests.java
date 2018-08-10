@@ -40,6 +40,14 @@ public class ProductControllerTests {
     mockMvc.perform(post("/describe").contentType(MediaType.APPLICATION_JSON)
     .param("name", "Playstation").param("price", "120"))
         .andDo(print())
-        .andExpect(status().isOk());
+        .andExpect(status().isOk()).andExpect(jsonPath("name").value("Playstation"))
+    .andExpect(jsonPath("price").value(120));
+  }
+
+  @Test
+  public void verifyFirstObject() throws Exception {
+    mockMvc.perform(post("/getProduct").param("name", "Nintendo 64"))
+        .andExpect(status().isOk()).andExpect(jsonPath("name").value("Nintendo 64"))
+        .andExpect(jsonPath("price").value(65));
   }
 }

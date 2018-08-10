@@ -1,12 +1,7 @@
 package com.cisClient.cisclient;
 
-import java.net.URI;
-import java.util.HashMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,5 +31,12 @@ public class ProductController {
 //    ResponseEntity<Product> res = restTemplate().exchange(RequestEntity.post(URI.create("http://localhost:5000/describe"))
 //    .contentType(MediaType.APPLICATION_JSON).body(product), Product.class);
 //    return res.getBody();
+  }
+
+  @PostMapping("getProduct")
+  public Product verifyFirstProd(){
+    HttpEntity<Product> req = new HttpEntity<>(new Product());
+    Product pr = restTemplate().postForObject("http://localhost:5000/getProduct", req, Product.class);
+    return pr;
   }
 }
